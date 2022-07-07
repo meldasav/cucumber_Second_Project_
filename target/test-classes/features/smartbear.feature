@@ -62,7 +62,7 @@ Feature: SmartBear Functionalities
 
   @Regression
 
-  Scenario: Validate"Delete Selected” button
+  Scenario: Validate"Delete Selected" button
     When user enters username as"Tester"
     And user enters password as"test"
     And user clicks on Login button

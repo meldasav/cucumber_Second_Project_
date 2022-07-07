@@ -14,8 +14,6 @@ import utils.Driver;
 import utils.DropdownHandler;
 import utils.Waiter;
 
-import java.util.List;
-
 public class SmartBearSteps {
 
     WebDriver driver;
@@ -40,13 +38,11 @@ public class SmartBearSteps {
         smartBearHomePage.passwordInputBox.sendKeys(password);
     }
 
-
     @And("user clicks on Login button")
     public void user_clicks_on_Login_button() {
         smartBearHomePage.loginButton.click();
 
     }
-
     @Then("user should see{string} Message")
     public void user_should_see_Message(String invalidMessage) {
         Assert.assertEquals(invalidMessage, smartBearHomePage.errorMessage.getText());
@@ -75,19 +71,19 @@ public class SmartBearSteps {
             case "Uncheck All":
                 smartBearWebOrdersPage.unCheckAllBox.click();
                 break;
-        }
 
+            case "Delete Selected":
+                smartBearWebOrdersPage.deleteButton.click();
+                break;
+        }
     }
 
     @Then("all rows should be checked")
     public void all_rows_should_be_checked() {
         for (WebElement element : smartBearWebOrdersPage.checkBoxes) {
             Assert.assertFalse(element.isSelected());
-
         }
-
     }
-
     @Then("all rows should be unchecked")
     public void all_rows_should_be_unchecked() {
         for (WebElement element : smartBearWebOrdersPage.checkBoxes) {
@@ -147,18 +143,21 @@ public class SmartBearSteps {
             Assert.assertTrue(smartBearWebOrdersPage.myOrderFirstRow.get(i).isDisplayed());
         }
 
-
         }
-
         @Then("validate all information entered displayed correct with the order")
         public void validate_all_information_entered_displayed_correct_with_the_order(DataTable dataTable) {
             for (int i = 1; i <12; i++) {
                 Assert.assertEquals(dataTable.asList().get(i), smartBearWebOrdersPage.myOrderFirstRow.get(i).getText());
-
-
             }
         }
 
+    @Then("validate all orders are deleted from the{string}")
+    public void validate_all_orders_are_deleted_from_the(String orders) {
+      Assert.assertNotNull(orders);
 
-
+    }
+    @Then("validate user sees{string}Message")
+    public void validate_user_sees_Message(String emptyMessage) {
+      Assert.assertEquals(emptyMessage,smartBearWebOrdersPage.emptyMessage.getText());
+    }
 }
